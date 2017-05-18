@@ -7,11 +7,11 @@ from argparse import ArgumentParser
 import os.path
 import sys
 try:
-    from urllib.parse import quote
+    from urllib import quote
 except ImportError:
     from urllib.parse import quote
 try:
-    import urllib.parse
+    import urlparse
 except ImportError:
     import urllib.parse as urlparse
 
@@ -43,14 +43,14 @@ def create_url_file(url, output_dir=None):
     ## E.g. call |urlsplit| with |'pypi.python.org/'| returns
     ##  SplitResult(scheme='', netloc='', path='pypi.python.org/', query='', fragment='')
     ##  due to the missing scheme |http://|.
-    part_s = urllib.parse.urlsplit(url)
+    part_s = urlparse.urlsplit(url)
     
     scheme = part_s[0]
 
     if not scheme:
         url = 'http://' + url
     
-        part_s = urllib.parse.urlsplit(url)
+        part_s = urlparse.urlsplit(url)
         
         assert part_s[0]
 
@@ -271,7 +271,7 @@ def main():
     )
 
     #/ 8f2FJUA
-    print(('{}\nto\n{}'.format(url, url_file_path)))
+    print('{}\nto\n{}'.format(url, url_file_path))
     
     #/ 4aAEFUP
     return RET_V_OK
